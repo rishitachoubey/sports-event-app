@@ -1,0 +1,52 @@
+/* Styles for the container of the event list */
+.event-list-container {
+    display: flex;
+    flex-direction: column-reverse; /* Reverse order on smaller screens */
+    padding: 0.5rem;
+    gap: 2rem;
+
+    @media screen and (min-width: 1024px) {
+        flex-direction: row; /* Change to row layout on larger screens */
+        padding: 4rem;
+        min-height: 100vh;
+    }
+}
+
+/* Styles for the event list */
+.event-list {
+    display: grid;
+    flex: 1;
+    width: 100%;
+    grid-template-columns: repeat(2, minmax(300px, 350px)); /* Grid with 2 columns */
+    row-gap: 1rem;
+    column-gap: 1rem;
+    justify-content: center;
+
+    @media screen and (max-width: 1024px) {
+        grid-template-columns: repeat(1, auto); /* Change to single column on smaller screens */
+    }
+}
+
+/* Styles for the title of the event list */
+.event-list-title {
+    text-align: center;
+    margin: 0rem;
+    padding: 0rem;
+    margin-bottom: 1rem;
+}
+
+/* Styles for the wrapper of each event */
+.event-list-wrapper {
+    border: 1px solid lightgray;
+    padding: 1.5rem;
+    width: 100%;
+
+    @media screen and (max-width: 1024px) {
+        padding: 1.5rem 0rem; /* Adjust padding on smaller screens */
+    }
+}
+
+/* Styles for the alignment of the loader */
+.loader-alignment {
+    margin-top: 3rem;
+}

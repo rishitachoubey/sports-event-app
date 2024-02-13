@@ -1,0 +1,35 @@
+/* Base styles for custom buttons */
+.custom-btn{
+    padding: 0.25rem 0.5rem;
+    border: 1px solid darkgreen;
+    border-radius: 0.25rem;  
+    background-color: lightgreen;
+    text-transform: uppercase;
+    color: black;
+    font: inherit;
+    cursor: pointer;
+    outline: none;
+
+    /* Hover state */
+    &:hover {
+        background-color: darkgreen;
+        color: white;
+    }
+
+    /* Disabled state */
+    &:disabled {
+        cursor: not-allowed;
+        background-color: gray;
+    }
+}
+
+/* Variant for removal actions */
+.custom-btn-remove{
+    background-color: red;
+    border: 1px solid red;
+
+    /* Hover state */
+    &:hover {
+        color: white;
+    }
+}

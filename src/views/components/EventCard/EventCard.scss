@@ -1,0 +1,50 @@
+/* Styles for the event card container */
+
+.event-card-container{
+    border: 1px solid cyan;
+    border-radius: 1rem;
+    padding: 1rem;
+    display: flex;
+    gap: 1.5rem;
+
+  /* Styles for disabled state */
+
+    &:disabled{
+        background-color: "lightgray";
+    }
+}
+
+/* Category label styles */
+.event-card-category{
+    display: flex;
+    align-self: center;
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/* Divider styling */
+.event-card-divider{
+    width: 2px;
+    background-color: black;   
+}
+
+/* Content container styling */
+.event-card-content{
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+}
+
+/* Title styling */
+.event-card-title{
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+/* Actions container styling */
+.event-card-actions{
+    display: flex;
+    justify-content: end;
+    padding-top: 0.5rem;
+}
