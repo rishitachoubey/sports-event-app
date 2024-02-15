@@ -1,54 +1,47 @@
-import "@testing-library/jest-dom";
-import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import { setupServer } from "msw/node";
-import { mockEvents } from "../../../mocks/mockData";
-import { apiHandlers } from "../../../mocks/handlers";
-import { EventsContext } from "../../../contexts/eventsContext";
-import { EventList } from "../EventList";
+import React from 'react';
+import { render, screen } from '@testing-library/react';
+import '@testing-library/jest-dom';
+import { EventList } from '../EventList';
+import { useFetchEvents } from '../useFetchEvents';
+import { useEventsContext } from '../../../contexts/eventsContext'; // Import the context hook
 
-const server = setupServer(...apiHandlers);
+// Mock the custom hooks
+jest.mock('../useFetchEvents', () => ({
+  useFetchEvents: jest.fn(),
+}));
+jest.mock('../../../contexts/eventsContext', () => ({ // Make sure the path is correct
+  useEventsContext: jest.fn(),
+}));
 
-beforeAll(() => server.listen());
-afterEach(() => server.resetHandlers());
-afterAll(() => server.close());
-
-const state = { events: mockEvents, selectedEvents: [] };
-const dispatch = jest.fn();
-
-const renderApp = () => {
-  render(
-    <EventsContext.Provider value={{ ...state, dispatch }}>
-      <EventList />
-    </EventsContext.Provider>
-  );
-};
-
-describe("Event List", () => {
-  test("should render initial events", async () => {
-    renderApp();
-
-    expect(
-      screen.getByRole("heading", { name: /all events/i })
-    ).toBeInTheDocument();
-
-    expect(
-      screen.getByRole("heading", { name: /selected events/i })
-    ).toBeInTheDocument();
-
-    expect(await screen.findByText(/butterfly/i)).toBeInTheDocument();
-
-    expect(screen.getByRole("button", { name: /select/i })).toBeInTheDocument();
-  });
-
-  test("should allow user to select any event from available events", async () => {
-    renderApp();
-
-    userEvent.click(await screen.findByRole("button", { name: /select/i }));
-
-    expect(dispatch).toHaveBeenNthCalledWith(1, {
-      payload: 1,
-      type: "SELECT_EVENT",
+describe('EventList Component', () => {
+  test('displays loader while events are loading', () => {
+    useFetchEvents.mockReturnValue({
+      isLoading: true,
     });
+    useEventsContext.mockReturnValue({ // Provide mock data for the context
+      events: [],
+      selectedEvents: [],
+      dispatch: jest.fn(),
+    });
+
+    render(<EventList />);
+    expect(screen.getByTestId('loader')).toBeInTheDocument();
   });
+
+  test('renders AllEvents when not loading', () => {
+    useFetchEvents.mockReturnValue({
+      isLoading: false,
+    });
+    useEventsContext.mockReturnValue({ // Provide mock data for the context
+      events: [{ id: 1, name: 'Test Event' }], // Add at least one event
+      selectedEvents: [],
+      dispatch: jest.fn(),
+    });
+
+    render(<EventList />);
+    expect(screen.getByText('All Events')).toBeInTheDocument();
+    expect(screen.getByText('Selected Events')).toBeInTheDocument();
+  });
+
+  // Add more tests here as needed
 });

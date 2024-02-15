@@ -1,50 +1,61 @@
 /* Styles for the event card container */
-
-.event-card-container{
-    border: 1px solid cyan;
-    border-radius: 1rem;
-    padding: 1rem;
+.event-card-container {
+    border: 1px solid #E0E0E0; 
+    border-radius: 8px; 
+    padding: 16px;
     display: flex;
-    gap: 1.5rem;
-
-  /* Styles for disabled state */
+    gap: 24px; 
+    background-color: #FFFFFF;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2); 
+    transition: box-shadow 0.3s; 
 
     &:disabled{
-        background-color: "lightgray";
+        background-color: #F5F5F5 !important; /* A Material light grey for disabled background */
+        color: #BDBDBD !important; 
+        pointer-events: none; 
+        box-shadow: none; 
     }
 }
 
+.event-card-container:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3); /* Deeper shadow on hover for interaction feedback */
+}
+
 /* Category label styles */
-.event-card-category{
+.event-card-category {
     display: flex;
     align-self: center;
     text-transform: uppercase;
-    font-size: 1.5rem;
+    font-size: 20px; 
     font-weight: bold;
+    color: #009688; /* Teal color from Material palette for emphasis */
 }
 
 /* Divider styling */
-.event-card-divider{
+.event-card-divider {
     width: 2px;
-    background-color: black;   
+    background-color: #BDBDBD; /* Making the divider subtler */
 }
 
 /* Content container styling */
-.event-card-content{
+.event-card-content {
     display: flex;
     flex-direction: column;
-    gap: 0.1rem;
+    gap: 8px; 
+    flex-grow: 1; 
 }
 
 /* Title styling */
-.event-card-title{
-    font-size: 1rem;
+.event-card-title {
+    font-size: 18px; /* Bigger title for emphasis */
     font-weight: bold;
+    color: #212121; /* Deep grey for better readability */
 }
 
 /* Actions container styling */
-.event-card-actions{
+.event-card-actions {
     display: flex;
     justify-content: end;
-    padding-top: 0.5rem;
+    padding-top: 8px; 
 }
+

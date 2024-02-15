@@ -1,35 +1,46 @@
 /* Base styles for custom buttons */
-.custom-btn{
-    padding: 0.25rem 0.5rem;
-    border: 1px solid darkgreen;
-    border-radius: 0.25rem;  
-    background-color: lightgreen;
+.custom-btn {
+    padding: 0.5rem 1rem;
+    border: none; 
+    border-radius: 0.3rem;
+    background-color: #4CAF50; 
     text-transform: uppercase;
-    color: black;
+    color: white; 
     font: inherit;
     cursor: pointer;
     outline: none;
+    transition: box-shadow 0.3s, background-color 0.3s; /* Smooth transitions for Material feel */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Subtle shadow */
+}
 
-    /* Hover state */
-    &:hover {
-        background-color: darkgreen;
-        color: white;
-    }
+.custom-btn:hover {
+    background-color: #388E3C; 
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3); /* Increased shadow on hover */
+}
 
-    /* Disabled state */
-    &:disabled {
-        cursor: not-allowed;
-        background-color: gray;
-    }
+.custom-btn:active {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Less shadow when button is clicked */
+}
+
+.custom-btn:disabled {
+    cursor: not-allowed;
+    background-color: #E0E0E0; /* Material Design gray for disabled state */
+    color: #BDBDBD; 
+    box-shadow: none; /* No shadow for disabled state */
 }
 
 /* Variant for removal actions */
-.custom-btn-remove{
-    background-color: red;
-    border: 1px solid red;
+.custom-btn-remove {
+    background-color: #F44336; 
+    border: none;
+}
 
-    /* Hover state */
-    &:hover {
-        color: white;
-    }
+.custom-btn-remove:hover {
+    background-color: #D32F2F; /* A darker shade of red for hover */
+}
+
+/* Adding focus outline for accessibility */
+.custom-btn:focus, .custom-btn-remove:focus {
+    outline: 2px solid #FFF; 
+    outline-offset: 2px;
 }

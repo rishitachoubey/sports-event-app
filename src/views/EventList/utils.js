@@ -19,41 +19,8 @@ export const isEventDisabled = (selectedEvents, currentEvent) => {
       event.start_time < currentEvent.end_time &&
       event.end_time > currentEvent.start_time
     ) {
-      return true;
+      return true; // An overlap is found
     }
   }
+  return false; // No overlaps are found
 };
-
-
-// Additional
-
-// // Function to filter events based on a search query
-// export const getSearchedEvents = (eventList, query) => {
-//   if (query) {
-//     return eventList.filter((event) =>
-//       event.event_name.toLowerCase().startsWith(query.toLowerCase())
-//     );
-//   }
-//   return eventList;
-// };
-
-// // Function to get unique event categories from a list of events
-// export const getEventCategories = (eventList) => {
-//   const categoryMap = eventList.reduce((result, { event_category }) => {
-//     if (!result[event_category]) {
-//       result[event_category] = 1;
-//     }
-//     return result;
-//   }, {});
-//   return Object.keys(categoryMap);
-// };
-
-// // Function to filter events by category
-// export const getFilteredCategoryEvents = (eventList, query) => {
-//   if (query) {
-//     return eventList.filter((event) =>
-//       event.event_category.toLowerCase().includes(query.toLowerCase())
-//     );
-//   }
-//   return eventList;
-// };

@@ -1,52 +1,77 @@
-/* Styles for the container of the event list */
+/* Overall alignment and spacing adjustment for Material Design */
+:root {
+    --spacing-small: 8px;
+    --spacing-medium: 16px;
+    --spacing-large: 24px;
+    --border-radius: 4px; /* Rounded corners */
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif; /* Material Design typeface */
+}
+
+/* Styles for the container of the event list, adjusting for Material Design */
 .event-list-container {
     display: flex;
     flex-direction: column-reverse; /* Reverse order on smaller screens */
-    padding: 0.5rem;
-    gap: 2rem;
+    padding: var(--spacing-medium);
+    gap: var(--spacing-large);
 
     @media screen and (min-width: 1024px) {
         flex-direction: row; /* Change to row layout on larger screens */
-        padding: 4rem;
+        padding: var(--spacing-large);
         min-height: 100vh;
     }
 }
 
-/* Styles for the event list */
+/* Styles for the event list, centering content and responsive */
 .event-list {
     display: grid;
     flex: 1;
     width: 100%;
-    grid-template-columns: repeat(2, minmax(300px, 350px)); /* Grid with 2 columns */
-    row-gap: 1rem;
-    column-gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+    gap: var(--spacing-medium);
     justify-content: center;
-
-    @media screen and (max-width: 1024px) {
-        grid-template-columns: repeat(1, auto); /* Change to single column on smaller screens */
-    }
 }
 
-/* Styles for the title of the event list */
+/* Styles for the title of the event list, centered with Material Design spacing */
 .event-list-title {
     text-align: center;
-    margin: 0rem;
-    padding: 0rem;
-    margin-bottom: 1rem;
+    margin: 0;
+    padding: var(--spacing-medium);
+    margin-bottom: var(--spacing-medium);
 }
 
-/* Styles for the wrapper of each event */
+/* Styles for the wrapper of each event, adding Material Design depth and responsiveness */
 .event-list-wrapper {
-    border: 1px solid lightgray;
-    padding: 1.5rem;
+    border: 1px solid transparent; /* Remove border */
+    background-color: #FFFFFF; /* Material Design card color */
+    padding: var(--spacing-medium);
     width: 100%;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Add shadow for depth */
+    border-radius: var(--border-radius); /* Rounded corners for material effect */
 
-    @media screen and (max-width: 1024px) {
-        padding: 1.5rem 0rem; /* Adjust padding on smaller screens */
+    transition: box-shadow 0.3s ease-in-out; /* Smooth transition for hover effect */
+}
+
+.event-list-wrapper:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3); /* Hover state shadow */
+}
+
+@media screen and (max-width: 1024px) {
+    .event-list-wrapper {
+        padding: var(--spacing-medium) var(--spacing-small); /* Adjust padding */
     }
 }
 
-/* Styles for the alignment of the loader */
+/* Styles for the loader alignment with Material Design spacing */
 .loader-alignment {
-    margin-top: 3rem;
+    margin-top: var(--spacing-large);
+    text-align: center; /* Center loader */
 }

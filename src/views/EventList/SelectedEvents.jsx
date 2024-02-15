@@ -14,7 +14,7 @@ export const SelectedEvents = () => {
   // Memoized sorting of selected events based on start time
   const sortedEvents = useMemo(
     () => selectedEvents.sort((e1, e2) => e1.start_time - e2.start_time),
-    [selectedEvents.length]
+    [selectedEvents]
   );
 
   // Function to handle click events on each selected event card
@@ -32,20 +32,19 @@ export const SelectedEvents = () => {
       <h2 className="event-list-title">Selected Events</h2>
       {/* Display selected events list */}
       <div className="event-list" onClick={handleSelectedEventClick}>
-        {sortedEvents.map((event) => {
-          return (
-            <EventCard key={event.id} {...event}>
-              {/* Button to remove the selected event */}
-              <Button
-                data-event-id={event.id}
-                data-action={eventActionMap.REMOVE}
-                classname="custom-btn custom-btn-remove"
-              >
-                Remove
-              </Button>
-            </EventCard>
-          );
-        })}
+        {sortedEvents.map((event) => (
+          <EventCard key={event.id} {...event} data-testid={`event-card-${event.id}`}>
+            {/* Button to remove the selected event */}
+            <Button
+              data-event-id={event.id}
+              data-action={eventActionMap.REMOVE}
+              className="custom-btn custom-btn-remove"
+              data-testid={`remove-event-${event.id}`} // Added data-testid for remove button
+            >
+              Remove
+            </Button>
+          </EventCard>
+        ))}
       </div>
     </div>
   );

@@ -1,50 +1,59 @@
-import { mockEvents } from "../../mocks/mockData";
-import { actions } from "../Actions";
-import { eventsReducer } from "../eventsReducer";
+import { actions } from '../Actions';
+import { eventsReducer } from '../eventsReducer';
+import { addSelectedEvent, removeSelectedEvent } from '../utils';
 
-const { SET_ALL_EVENTS, SELECT_EVENT, DESELECT_EVENT } = actions;
+// Mock the utility functions used in the reducer
+jest.mock('../utils', () => ({
+  addSelectedEvent: jest.fn(),
+  removeSelectedEvent: jest.fn(),
+}));
 
-describe("Events Reducer Test", () => {
-  test("should set all events when SET_ALL_EVENTS action is dispatched", () => {
-    const eventsState = { events: [], selectedEvents: [] };
+describe('eventsReducer', () => {
+  const initialState = {
+    events: [],
+    selectedEvents: [],
+  };
 
-    const action = {
-      type: SET_ALL_EVENTS,
-      payload: mockEvents,
-    };
-
-    const { events } = eventsReducer(eventsState, action);
-
-    expect(events).toEqual(mockEvents);
+  it('should handle SET_ALL_EVENTS action', () => {
+    const mockEvents = [{ id: 1, name: 'Event 1' }];
+    const action = { type: actions.SET_ALL_EVENTS, payload: mockEvents };
+    const newState = eventsReducer(initialState, action);
+    expect(newState).toEqual({ ...initialState, events: mockEvents });
   });
 
-  test("should update state when SELECT_EVENT action is dispatched", () => {
-    const eventsState = { events: mockEvents, selectedEvents: [] };
-
-    const action = {
-      type: SELECT_EVENT,
-      payload: mockEvents[0].id,
-    };
-
-    const { events, selectedEvents } = eventsReducer(eventsState, action);
-
-    expect(events).toEqual([]);
-
-    expect(selectedEvents).toEqual(mockEvents);
+  it('should handle SELECT_EVENT action', () => {
+    const action = { type: actions.SELECT_EVENT, payload: 1 };
+    addSelectedEvent.mockReturnValue({
+      selectedEvents: [{ id: 1, name: 'Event 1' }],
+      events: [],
+    });
+    const newState = eventsReducer(initialState, action);
+    expect(addSelectedEvent).toHaveBeenCalledWith({
+      events: initialState.events,
+      selectedEvents: initialState.selectedEvents,
+      selectedId: action.payload,
+    });
+    expect(newState).toEqual({ ...initialState, selectedEvents: [{ id: 1, name: 'Event 1' }], events: [] });
   });
 
-  test("should update state when DESELECT_EVENT action is dispatched", () => {
-    const eventsState = { events: [], selectedEvents: mockEvents };
+  it('should handle DESELECT_EVENT action', () => {
+    const action = { type: actions.DESELECT_EVENT, payload: 1 };
+    removeSelectedEvent.mockReturnValue({
+      selectedEvents: [],
+      events: [{ id: 1, name: 'Event 1' }],
+    });
+    const newState = eventsReducer(initialState, action);
+    expect(removeSelectedEvent).toHaveBeenCalledWith({
+      events: initialState.events,
+      selectedEvents: initialState.selectedEvents,
+      selectedId: action.payload,
+    });
+    expect(newState).toEqual({ ...initialState, selectedEvents: [], events: [{ id: 1, name: 'Event 1' }] });
+  });
 
-    const action = {
-      type: DESELECT_EVENT,
-      payload: mockEvents[0].id,
-    };
-
-    const { events, selectedEvents } = eventsReducer(eventsState, action);
-
-    expect(events).toEqual(mockEvents);
-
-    expect(selectedEvents).toEqual([]);
+  it('should return the current state if the action does not match', () => {
+    const action = { type: 'UNKNOWN_ACTION', payload: null };
+    const newState = eventsReducer(initialState, action);
+    expect(newState).toEqual(initialState);
   });
 });

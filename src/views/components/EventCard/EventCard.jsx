@@ -17,11 +17,12 @@ export const EventCard = ({
   const end = convertDateToTime(end_time);
 
   return (
-    <div className="event-card-container" isDisabled={isDisabled}>
+    <div className={`event-card-container ${isDisabled ? 'disabled' : ''}`} data-testid={`event-card-${id}`}>
       <div className="event-card-category">{event_category?.[0]}</div>
       <div className="event-card-divider" />
       <div className="event-card-content">
-        <div className="event-card-title">{event_name}</div>
+        {/* Add data-testid attribute to the event name div */}
+        <div className="event-card-title" data-testid={`event-name-${id}`}>{event_name}</div>
         <div>({event_category})</div>
         <div>{start} - {end}</div>
         <div className="event-card-actions">{children}</div> {/* Action area */}
