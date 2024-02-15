@@ -32,4 +32,9 @@ This ReactJS-based web application offers a platform for discovering and registe
 
 Delve deeper into the application's development process, architecture, and technical challenges via the presentation [here](https://docs.google.com/presentation/d/1GqR1IOwZG7aj4Vkw8oncP2Hn676VgyPbnOk8F-uYjCA/edit?usp=sharing).
 
+## Page Load Time
+- Performance Report is calculated using [Page Speed Insights](https://pagespeed.web.dev/)
+- [Desktop Performance Report](https://pagespeed.web.dev/analysis/https-sports-event-app-vercel-app/kkyzzcystb?form_factor=desktop)
+- [Mobile Performance Report](https://pagespeed.web.dev/analysis/https-sports-event-app-vercel-app/kkyzzcystb?form_factor=mobile)
+
 ---
